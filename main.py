@@ -161,7 +161,7 @@ class PetriDishDiffusionSolver:
 
 solver = PetriDishDiffusionSolver(
     dish_size_mm=90,
-    dx_mm=1.0,
+    dx_mm=0.1,
     diffusion_coefficient=0.5540  # adjust/fit this later
 )
 
