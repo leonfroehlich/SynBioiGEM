@@ -100,6 +100,58 @@ class PetriDishDiffusionSolver:
         plt.title(title)
         plt.show()
 
+    def plot_isolines(
+        self,
+        concentration,
+        levels,
+        title="Ampicillin concentration isolines",
+        show_filled_background=True
+    ):
+        """
+        Plots isolines for specified concentration levels.
+
+        Parameters
+        ----------
+        concentration : 2D numpy array
+            Concentration field at one time point.
+        levels : list of float
+            Concentration values for which isolines are drawn.
+        title : str
+            Plot title.
+        show_filled_background : bool
+            If True, also shows a faint concentration heatmap underneath.
+        """
+
+        x = np.linspace(0, self.dish_size_mm, self.nx)
+        y = np.linspace(0, self.dish_size_mm, self.ny)
+        X, Y = np.meshgrid(x, y)
+
+        plt.figure()
+
+        if show_filled_background:
+            plt.imshow(
+                concentration,
+                origin="lower",
+                extent=[0, self.dish_size_mm, 0, self.dish_size_mm],
+                alpha=0.35
+            )
+            plt.colorbar(label="Concentration")
+
+        contours = plt.contour(
+            X,
+            Y,
+            concentration,
+            levels=levels
+        )
+
+        plt.clabel(contours, inline=True, fontsize=8)
+
+        plt.xlabel("x position [mm]")
+        plt.ylabel("y position [mm]")
+        plt.title(title)
+        plt.axis("equal")
+        plt.show()
+
 
 # -------------------------------
 # Example setup for your experiment
@@ -129,7 +181,8 @@ print("Times saved:", times)
 print("Output shape:", concentrations.shape)
 
 # Plot final concentration after 17 hours
-solver.plot(
+solver.plot_isolines(
     concentrations[-1],
-    title="Simulated ampicillin diffusion after 17 h"
+    levels=[0.5, 1, 2, 5, 10],
+    title="Ampicillin isolines after 17 h"
 )
