@@ -108,14 +108,14 @@ class PetriDishDiffusionSolver:
 solver = PetriDishDiffusionSolver(
     dish_size_mm=90,
     dx_mm=1.0,
-    diffusion_coefficient=1.0  # adjust/fit this later
+    diffusion_coefficient=0.5540  # adjust/fit this later
 )
 
 # Example disk positions in mm
 # Change these to match your actual plate image
-solver.add_disk(x_mm=30, y_mm=45, radius_mm=3, concentration=2)
-solver.add_disk(x_mm=45, y_mm=65, radius_mm=3, concentration=10)
-solver.add_disk(x_mm=60, y_mm=45, radius_mm=3, concentration=50)
+solver.add_disk(x_mm=50.9, y_mm=66.6, radius_mm=3.9, concentration=2)
+solver.add_disk(x_mm=23.8, y_mm=40.6, radius_mm=3.9, concentration=10)
+solver.add_disk(x_mm=61.8, y_mm=30.7, radius_mm=3.9, concentration=50)
 
 times, concentrations = solver.run(
     total_time_hours=17,

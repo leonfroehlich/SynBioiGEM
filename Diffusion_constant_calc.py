@@ -12,3 +12,5 @@ MW_ampicillin = 349.4 # g/mol
 
 D_ampicillin = D_piperacillin * (T_ampicillin/T_piperacillin) * (DynViscosity_20 / DynViscosity_37) * ( MW_piperacillin/MW_ampicillin) ** (1/3)
 print("Diffusion coefficient of ampicillin at 37C: ", D_ampicillin, "cm^2/s")
+D_ampicillin_mm2_hour = D_ampicillin * 100 * 3600
+print("Diffusion coefficient of ampicillin at 37C: ", D_ampicillin_mm2_hour, "mm^2/hour")
