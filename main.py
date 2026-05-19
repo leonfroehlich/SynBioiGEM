@@ -32,13 +32,15 @@ class PetriDishDiffusionSolver:
 
         self.C = np.zeros((self.ny, self.nx))
 
-    def add_disk(self, x_mm, y_mm, radius_mm, concentration):
+    def add_disk(self, x_mm, y_mm, radius_mm, mass):
         """
         Adds an antibiotic disk at position x,y with given radius and initial concentration.
         """
         x0 = int(x_mm / self.dx)
         y0 = int(y_mm / self.dy)
         r = radius_mm / self.dx
+        A = np.pi * r**2
+        concentration = mass / A  # total amount divided by area
 
         Y, X = np.ogrid[:self.ny, :self.nx]
         mask = (X - x0)**2 + (Y - y0)**2 <= r**2
@@ -113,9 +115,9 @@ solver = PetriDishDiffusionSolver(
 
 # Example disk positions in mm
 # Change these to match your actual plate image
-solver.add_disk(x_mm=50.9, y_mm=66.6, radius_mm=3.9, concentration=2)
-solver.add_disk(x_mm=23.8, y_mm=40.6, radius_mm=3.9, concentration=10)
-solver.add_disk(x_mm=61.8, y_mm=30.7, radius_mm=3.9, concentration=50)
+solver.add_disk(x_mm=50.9, y_mm=66.6, radius_mm=3.9, mass=2)
+solver.add_disk(x_mm=23.8, y_mm=40.6, radius_mm=3.9, mass=10)
+solver.add_disk(x_mm=61.8, y_mm=30.7, radius_mm=3.9, mass=50)
 
 times, concentrations = solver.run(
     total_time_hours=17,
